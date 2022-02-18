@@ -41,4 +41,4 @@ either bought online, 3D printed, or found in our local Cal Poly machine shops.
 #CAD Model
 
 ### Assembly Drawing and BOM
-![Assembly Drawing and BOM](/Images/ME 405 Term Project.PNG)
+![Assembly Drawing and BOM](/Images/ME405TermProject.PNG)
