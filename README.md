@@ -1,7 +1,7 @@
 # Term Project Proposal
 ## Authors: Wyatt Conner, Jameson Spitz, Jacob Wong
 
-#Introduction
+## Introduction
 Our system will be able to draw a picture roughly 4" x 6" in size by having our Nucleo 
 microcontroller drive two motors to move a pencil along 2 axis. Additionally, the system 
 must have some functionality to raise the pencil slightly off the paper when not drawing.
@@ -18,7 +18,7 @@ shaft, our pencil can move anywhere in the radial and theta direction. All parts
 either bought online, 3D printed, or found in our local Cal Poly machine shops.
 
 
-#Bill Of Materials
+## Bill Of Materials
 
 
 | Qty. | Part                    | Source                | Est. Cost |
@@ -38,7 +38,7 @@ either bought online, 3D printed, or found in our local Cal Poly machine shops.
 |  1   | 9.6mm Fitting           | Dumpster Behind Bondo | Our pride |
 |  1   | Pin Joint               | Dumpster Behind Bondo | Our pride |
 
-#CAD Model
+## CAD Model
 
 ### Assembly Drawing and BOM
 ![Assembly Drawing and BOM](/Images/ME405TermProject.PNG)
