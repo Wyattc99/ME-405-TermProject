@@ -6,7 +6,7 @@
 
    @section sec_intro1         Software Design
                                
-                               Our program will consist of tasks position_control1, position_control2, encoder1, and encoder2. 
+                               Our program will consist of tasks position_control1, position_control2, encoder1, encoder2, and HP-GL. 
                                The position control tasks will control the duty cycle of each motor individually and measure 
                                how many ticks each encoder is from its desired position. As each encoder gets closer to its 
                                desired position, the duty cycles will be decreasing to reach a final position without overshoot 
