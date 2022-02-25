@@ -25,9 +25,8 @@
 var NAVTREE =
 [
   [ "ME 405 Term Project", "index.html", [
-    [ "Software Design", "index.html#sec_intro1", [
-      [ "Task Diagram and Finite State Machines", "index.html#subsec_intro1", null ]
-    ] ],
+    [ "Software Design", "index.html#sec_intro1", null ],
+    [ "Task Diagram and Finite State Machines", "index.html#subsec_intro2", null ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ]
     ] ]

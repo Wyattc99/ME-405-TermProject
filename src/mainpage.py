@@ -31,15 +31,13 @@
                                found through testing.
 
                                
-   @subsection subsec_intro1   Task Diagram and Finite State Machines
+   @section subsec_intro2      Task Diagram and Finite State Machines
    
                                Below is the Task Diagram of all tasks used to control the pencil position.
-                               
-                               \image html TaskDiagram_TermProj.jpg
+                               \image html TaskDiagram_FinalProj.png
                                
                                Below is the Finite State Machine for our the position control file of one motor.
-                               
-                               \image html Fsm_TermProj.jpg
+                               \image html Fsm_TermProj.png
                         
    @author                     Jameson Spitz
    @author                     Jacob Wong
