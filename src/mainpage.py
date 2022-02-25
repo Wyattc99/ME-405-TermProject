@@ -36,11 +36,11 @@
    
                                Below is the Task Diagram of all tasks used to control the pencil position.
                                
-                               \image html DynamicsP1.png
+                               \image html TaskDiagram_TermProj-1.jpg
                                
                                Below is the Finite State Machine for our the position control file of one motor.
                                
-                               \image html DynamicsP1.png
+                               \image html Fsm_TermProj-1.jpg
                         
    @author                     Jameson Spitz
    @author                     Jacob Wong
