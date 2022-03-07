@@ -1,5 +1,20 @@
 # -*- coding: utf-8 -*-
 """
+<<<<<<< HEAD
+Created on Thu Mar  3 08:31:32 2022
+
+@author: wyatt
+"""
+
+from positioncontrol import PositionControlTask
+from motordriver import MotorDriver
+from encoderdriver import EncoderDriver
+import pyb
+
+
+#>>>>> Initlizing Class Objects <<<<<<
+
+=======
 Created on Sat Mar  5 21:13:25 2022
 
 @author: james
@@ -14,7 +29,34 @@ import pyb
 import gc
 import hpgl
 
+<<<<<<< HEAD:src/main.py
 def update_pwm_radial ():
+=======
+
+>>>>>>> 9db80527ac4d1566325147a95e3e78f7b43b587c
+## Creates the motor object for motor B
+motor_B = MotorDriver(pyb.Pin.board.PA0, pyb.Pin.board.PA1, pyb.Pin.board.PC1, 5)
+
+## Creates the motor object for motor A
+motor_A = MotorDriver(pyb.Pin.board.PB4, pyb.Pin.board.PB5, pyb.Pin.board.PA10, 3)
+
+## Creates the encoder object for encoder B
+enc_B = EncoderDriver(pyb.Pin.board.PC6, pyb.Pin.board.PC7, 8)
+
+## Creates the encoder object for encoder A
+enc_A = EncoderDriver(pyb.Pin.board.PB6, pyb.Pin.board.PB7, 4)
+
+## Create the position control object for system A
+control_A = PositionControlTask(motor_A, enc_A)
+
+## Creates the position control object for system B
+<<<<<<< HEAD
+control_B = PositionControlTask(motor_B, enc_B)
+=======
+control_B = PositionControlTask(motor_B, enc_B)
+
+def system_1 ():
+>>>>>>> c3a37880f1c91f43c1ef29af7eee5b82b400670a:src/rename.py
     """!
     Task which facilitates the motor position control method and records
     motor 1 data in a queue. The task then prints the data which is controlled
@@ -94,6 +136,7 @@ def get_setpoint_theta (theta_hpgl):
                 
         yield(0)
 
+<<<<<<< HEAD:src/main.py
 if __name__ == "__main__":
     print ('\033[2JTesting ME405 stuff in cotask.py and task_share.py\r\n'
            'Press ENTER to stop and show diagnostics.')
@@ -158,3 +201,7 @@ if __name__ == "__main__":
     
     while True:
         cotask.task_list.pri_sched()
+=======
+        yield (0)
+>>>>>>> 9db80527ac4d1566325147a95e3e78f7b43b587c
+>>>>>>> c3a37880f1c91f43c1ef29af7eee5b82b400670a:src/rename.py
