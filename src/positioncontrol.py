@@ -19,7 +19,7 @@ class PositionControlTask():
     error of the system and calculating the new data of the sy
     """
     
-    def __init__(self, Motor, Encoder):
+    def __init__(self, Motor, Encoder, error, set_point):
         """!
         This method initializes the position control object so we can create multiple
         objects for various encoder motor systems. This also initalizes our object variables
@@ -31,9 +31,9 @@ class PositionControlTask():
         ## This initilizing our controllers gain as zero as it will be referenced for other methods
         self.gain = 0
         ## This initilizes the desired position we want the motor to achieve
-        self.setpoint = 0
+        self.setpoint = set_point
         ## This initilizes the error variable to represent the difference of position to our actual position
-        self.error = 0
+        self.error = error
     
     def set_point(self):
         """!
@@ -84,5 +84,11 @@ class PositionControlTask():
             self.duty = 0
         
         self.Motor.set_duty_cycle(self.duty)
+        
+        def check_error(self):
+            if(self.error < 5):
+                return True
+            else:
+                return False
     
     
