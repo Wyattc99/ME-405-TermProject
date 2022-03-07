@@ -71,7 +71,7 @@ def update_pwm_theta ():
 
         yield (0)
         
-def get_setpoint_r (radial_hpgl):
+def get_setpoint_r ():
     
     state = 0
         
@@ -91,7 +91,7 @@ def get_setpoint_r (radial_hpgl):
                 
         yield(0)
                 
-def get_setpoint_theta (theta_hpgl):
+def get_setpoint_theta ():
     
     state = 0
         

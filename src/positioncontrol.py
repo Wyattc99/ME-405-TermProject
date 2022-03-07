@@ -73,22 +73,27 @@ class PositionControlTask():
         ## This variable is used to store the ticks value of the encoder
         self.position = self.Encoder.get_position()
         
-        self.error = (-self.position + self.setpoint)/self.setpoint
+        if(self.setpoint.get() == 0): ## Edit with zeroing function
+            self.error.put(0)
+        else:
+            self.error.put((-self.position + self.setpoint.get())/self.setpoint.get())
         
-        if self.error > 0:
+        print('Error: ', self.error.get())
+        
+        if self.error.get() > 0:
             ## Duty is represents the duty cycle being sent to the motor object
-            self.duty = self.gain*self.error + 15
-        elif self.error < 0:
-            self.duty = self.gain*self.error - 15
+            self.duty = self.gain*self.error.get() + 15
+        elif self.error.get() < 0:
+            self.duty = self.gain*self.error.get() - 15
         else:
             self.duty = 0
         
         self.Motor.set_duty_cycle(self.duty)
         
-        def check_error(self):
-            if(self.error < 5):
-                return True
-            else:
-                return False
+    def check_error(self):
+        if(self.error.get() < 5):
+            return True
+        else:
+            return False
     
     
