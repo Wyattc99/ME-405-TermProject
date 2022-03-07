@@ -33,9 +33,10 @@ def update_pwm_radial ():
             
             # Runs position control function from positioncontrol.py
             control_A.position_control()
+            # print('Updating PWM')
             
-            if (limit_A.check_limit()):
-                state = 1
+            # if (limit_A.check_limit()):
+            #     state = 1
                 
         if(state == 1):
             print('Limit Has been hit!')
@@ -61,9 +62,10 @@ def update_pwm_theta ():
             
             # Runs position control function from positioncontrol.py
             control_B.position_control()
+            print('Updating PWM')
             
-            if (limit_B.check_limit()):
-                state = 1
+            # if (limit_B.check_limit()):
+            #     state = 1
                 
         if(state == 1):
             print('Limit Has been hit!')
@@ -80,10 +82,12 @@ def get_setpoint_r ():
         if(state == 0):
             
             set_point_r.put(radial_hpgl.get())
+            print('Radial Set Point: ', set_point_r.get())
             state = 1
             
         elif(state == 1):
         
+            print('Checking for error!!!! ', error_r.get())
             condition = control_A.check_error()
             
             if (condition == True):
@@ -99,6 +103,7 @@ def get_setpoint_theta ():
         
         if(state == 0):
             set_point_theta.put(theta_hpgl.get())
+            print('Theta Set Point: ', set_point_theta.get())
             state = 1
             
         elif(state == 1):
@@ -147,10 +152,10 @@ if __name__ == "__main__":
     enc_A = EncoderDriver(pyb.Pin.board.PB6, pyb.Pin.board.PB7, 4)
     
     ## Create the position control object for system A
-    control_A = PositionControlTask(motor_A, enc_A, error_r, set_point_r)
+    control_A = PositionControlTask(motor_A, enc_A, error_r, set_point_r, 1)
     
     ## Creates the position control object for system B
-    control_B = PositionControlTask(motor_B, enc_B, error_theta, set_point_theta)
+    control_B = PositionControlTask(motor_B, enc_B, error_theta, set_point_theta, .005)
     
     limit_A = Limit_Switch(pyb.Pin.board.PC2)
     

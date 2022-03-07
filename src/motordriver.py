@@ -58,6 +58,7 @@ class MotorDriver():
 
     def set_duty_cycle(self, duty):
         
+        print('Duty Cycle: ,', duty)
         """!
         Accepts a duty cycle percentage and sets it as a pwm to nucleo channels.
         Sets the duty to move motor backwards or forwards.

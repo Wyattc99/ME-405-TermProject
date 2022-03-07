@@ -19,7 +19,7 @@ class PositionControlTask():
     error of the system and calculating the new data of the sy
     """
     
-    def __init__(self, Motor, Encoder, error, set_point):
+    def __init__(self, Motor, Encoder, error, set_point, gain):
         """!
         This method initializes the position control object so we can create multiple
         objects for various encoder motor systems. This also initalizes our object variables
@@ -29,7 +29,7 @@ class PositionControlTask():
         ## This variable passes the encoder object into the position control object
         self.Encoder = Encoder
         ## This initilizing our controllers gain as zero as it will be referenced for other methods
-        self.gain = 0
+        self.gain = gain
         ## This initilizes the desired position we want the motor to achieve
         self.setpoint = set_point
         ## This initilizes the error variable to represent the difference of position to our actual position
@@ -76,22 +76,24 @@ class PositionControlTask():
         if(self.setpoint.get() == 0): ## Edit with zeroing function
             self.error.put(0)
         else:
-            self.error.put((-self.position + self.setpoint.get())/self.setpoint.get())
-        
-        print('Error: ', self.error.get())
+            self.error.put((self.position + self.setpoint.get())/self.setpoint.get())
         
         if self.error.get() > 0:
             ## Duty is represents the duty cycle being sent to the motor object
-            self.duty = self.gain*self.error.get() + 15
+            self.duty = self.gain*self.error.get() + 25
         elif self.error.get() < 0:
-            self.duty = self.gain*self.error.get() - 15
+            self.duty = self.gain*self.error.get() - 25
         else:
             self.duty = 0
         
         self.Motor.set_duty_cycle(self.duty)
         
+        print('Position ----------------: ', self.position)
+        print('Setpoint ----------------: ', self.setpoint.get())
+        
     def check_error(self):
-        if(self.error.get() < 5):
+        #print('Checking Error')
+        if(self.error.get() < .01):
             return True
         else:
             return False
