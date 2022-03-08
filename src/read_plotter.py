@@ -13,6 +13,10 @@ class Hpgl:
         self.radial_hpgl = radial_hpgl
         self.theta_hpgl = theta_hpgl
         self.offset = offset
+        self.pitch = 8
+        self.rotation = 16_384
+        self.R_wheel = 80
+        self.R_main = 560
         
     def read_data(self):    
         
@@ -108,36 +112,42 @@ class Hpgl:
         while self.theta_hpgl.any():
             theta_data.append(self.theta_hpgl.get())
             
-        print(radial_data)
-        print('\n', theta_data)
-            
         for i in range (0, len(radial_data)):
-            
-            # if (radial_data[i].isnumeric() and theta_data[i].isnumeric()):
-            self.pitch = 8
-            self.rotation = 16_384
-            self.R_wheel = 1
-            self.R_main = 2
-            
+           
             # Convert Cartesian Cordiantes
             self.R = ((radial_data[i])**2 + (theta_data[i])**2)**(.5) + self.offset
-            self.rad_enc1 = (self.R - self.offset)/self.pitch
+            self.rad_enc1 = self.rotation*(self.R - self.offset)/self.pitch
             
             try:
-                self.theta = m.tan(theta_data[i]/radial_data[i])
+                self.theta = m.atan(theta_data[i]/radial_data[i])
+                print(self.theta)
                 
             except:
-                if (theta_data[i] > 0):
-                    self.theta = m.pi/2
-                elif(theta_data[i] < 0):
-                    self.theta = -m.pi/2
-                else:
-                    self.theta = 0
+                self.theta = m.pi/2
                     
-            self.rad_enc2 = (self.R_main/self.R_wheel)*self.theta
+            self.rad_enc2 = (self.R_main/self.R_wheel)*self.theta*self.rotation/(2*m.pi)
             
-            self.radial_hpgl.put((2*self.rotation/m.pi)*self.rad_enc1)
-            self.theta_hpgl.put((2*self.rotation/m.pi)*self.rad_enc2)
+            self.radial_hpgl.put(self.rad_enc1)
+            self.theta_hpgl.put(self.rad_enc2)
+            
+    def convert_point(self, X, Y):
+            
+            # Convert Cartesian Cordiantes
+            self.R = (X**2 + Y**2)**(.5) + self.offset
+            self.rad_enc1 = self.rotation*(self.R - self.offset)/self.pitch
+            
+            try:
+                self.theta = m.atan(Y/X)
+                
+            except:
+                self.theta = m.pi/2
+
+                    
+            self.rad_enc2 = (self.R_main/self.R_wheel)*self.theta*self.rotation/(2*m.pi)
+            
+            return (self.rad_enc1, self.rad_enc2)
+            
+
             
 
               

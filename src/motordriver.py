@@ -99,5 +99,8 @@ if __name__ == "__main__":
     motor2 = MotorDriver(pyb.Pin.board.PA0, pyb.Pin.board.PA1, pyb.Pin.board.PC1, 5)
     
     motor2.enable()
-    motor2.set_duty_cycle(0)
+    motor2.set_duty_cycle(50)
+    
+    motor1.enable()
+    motor1.set_duty_cycle(50)
 

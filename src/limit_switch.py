@@ -14,3 +14,5 @@ class Limit_Switch:
     def check_limit(self):
         if(self.pin1.value() == 1):
             return True
+        else:
+            return False

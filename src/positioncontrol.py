@@ -76,7 +76,7 @@ class PositionControlTask():
         if(self.setpoint.get() == 0): ## Edit with zeroing function
             self.error.put(0)
         else:
-            self.error.put((self.position + self.setpoint.get())/self.setpoint.get())
+            self.error.put((-self.position + self.setpoint.get())/self.setpoint.get())
         
         if self.error.get() > 0:
             ## Duty is represents the duty cycle being sent to the motor object
@@ -92,8 +92,8 @@ class PositionControlTask():
         print('Setpoint ----------------: ', self.setpoint.get())
         
     def check_error(self):
-        #print('Checking Error')
-        if(self.error.get() < .01):
+        if(abs(self.error.get()) < .1):
+            print('!!!!!!!!!!!!!!!!Checkpoint!!!!!!!!!!!!!!!!!!')
             return True
         else:
             return False
