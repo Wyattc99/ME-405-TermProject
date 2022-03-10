@@ -201,6 +201,7 @@ def get_setpoint_r ():
         elif(state == 2):
             flag_radial.put(0)
             condition2 = control_theta.check_error()
+            print('Motor Radial')
             
             if (condition2 == True):
                 state = 0
@@ -250,7 +251,8 @@ def get_setpoint_theta ():
         elif(state == 2):
             flag_theta.put(0)
             condition1 = control_radial.check_error()
-            
+            print('Motor Theta')
+             
             if (condition1 == True):
                 state = 0
                 flag_theta.put(1)

@@ -29,7 +29,7 @@ class Hpgl:
         num = False
         sol_pos = 0
         
-        with open('test2.hpgl', 'r') as plotter:
+        with open('test4.hpgl', 'r') as plotter:
             
             for line in plotter:
                 for character in line:
@@ -136,6 +136,8 @@ class Hpgl:
             
             self.radial_hpgl.put(self.rad_enc1)
             self.theta_hpgl.put(self.rad_enc2)
+            print ('x:', x_data[i], 'y:', y_data[i])
+            print ('r:', R_desired, 'theta:',theta)
             
     def convert_point(self, X, Y):
             
