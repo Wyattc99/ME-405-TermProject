@@ -60,6 +60,8 @@ def zero_position():
             elif limit_flag_B.get() == 1:
                 motor_B.set_duty_cycle(0)
                 zero_B = True
+                enc_B.set_position(-3000)
+                #enc_B.set_position(-1000)
                 
                 state = 2
                 
@@ -73,7 +75,8 @@ def zero_position():
             
         if (state==3):
             pass
-            
+        
+        print('1')
         yield(0)
     # Set the encoder position Values to Zero
     
@@ -123,6 +126,7 @@ def update_pwm_radial ():
             state = 0
 
         #print('State: ', state)
+        print('2')
         yield (0)
         
 def update_pwm_theta ():
@@ -169,7 +173,7 @@ def update_pwm_theta ():
         elif(state == 3):
             #print('Limit Has been hit!')
             state = 0
-
+        print('3')
         yield (0)
         
 def get_setpoint_r ():
@@ -223,7 +227,7 @@ def get_setpoint_r ():
             
         #     if(condition2 == True):
         #         state = 0
-                
+        print('4')        
         yield(0)
                 
 def get_setpoint_theta ():
@@ -257,7 +261,7 @@ def get_setpoint_theta ():
                 state = 0
                 flag_theta.put(1)
                 print('!!!!!!!!!!!!!!!!! Checkpoint !!!!!!!!!!!!!!!!!')
-        
+        print('5')
         #print(state)        
         yield(0)
         
@@ -314,10 +318,10 @@ if __name__ == "__main__":
     enc_A = EncoderDriver(pyb.Pin.board.PB6, pyb.Pin.board.PB7, 4)
     
     ## Create the position control object for system A
-    control_theta = PositionControlTask(motor_A, enc_A, error_theta, set_point_theta, .005)    # controller for theta direction
+    control_theta = PositionControlTask(motor_A, enc_A, error_theta, set_point_theta, .006)    # controller for theta direction
     
     ## Creates the position control object for system B
-    control_radial = PositionControlTask(motor_B, enc_B, error_r, set_point_r, .01) # controller for radial direction
+    control_radial = PositionControlTask(motor_B, enc_B, error_r, set_point_r, .025) # controller for radial direction
     
     limit_A = Limit_Switch(pyb.Pin.board.PC2)
     

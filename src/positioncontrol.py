@@ -92,7 +92,7 @@ class PositionControlTask():
         print('Setpoint ----------------: ', self.setpoint.get())
         
     def check_error(self):
-        if(abs(self.error.get()) < 2000):
+        if(abs(self.error.get()) < 3000):
            # print('!!!!!!!!!!!!!!!!Checkpoint!!!!!!!!!!!!!!!!!!')
             return True
         else:
