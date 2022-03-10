@@ -9,10 +9,12 @@ import math as m
 
 class Hpgl:
     
-    def __init__ (self, radial_hpgl, theta_hpgl, offset):
+    def __init__ (self, radial_hpgl, theta_hpgl, solenoid_hpgl, offset_x, offset_y):
         self.radial_hpgl = radial_hpgl
         self.theta_hpgl = theta_hpgl
-        self.offset = offset
+        self.solenoid_hpgl = solenoid_hpgl
+        self.offset_x = offset_x
+        self.offset_y = offset_y
         self.pitch = 8
         self.rotation = 16_384
         self.R_wheel = 80
@@ -24,9 +26,8 @@ class Hpgl:
         string = ''
         i = 0
         runs = 0
-        pen_orientation = []                # Pen is down when '2'
-        pen_flag = False
         num = False
+        sol_pos = 0
         
         with open('test2.hpgl', 'r') as plotter:
             
@@ -34,16 +35,11 @@ class Hpgl:
                 for character in line:
                     rows.append(character)
                     
-                print(rows)
-                    
                 while runs <= 1:
 
                     if(i >= len(rows)):
                         runs = 2
                         
-                    # elif(rows[i] == 'D' or rows[i] == 'U'):
-                        
-                    #     pen_flag = True
                     #     if (rows[i] == 'D'):
                     #         pen_orientation.append(1)
                     #         string += rows[i]
@@ -57,7 +53,6 @@ class Hpgl:
                     try:
                         int(rows[i])
                         string += str(rows[i])
-                        print(string)
                         num = True
                         
                     except: 
@@ -70,7 +65,13 @@ class Hpgl:
                    
                     if (i < len(rows)):
                         
-                        if(rows[i] == ',' or rows[i] == ';' or pen_flag):
+                        if(rows[i] == 'D' or rows[i] == 'U'):
+                            if rows[i] == 'D':
+                                sol_pos = 1
+                            elif rows[i] =='U':
+                                sol_pos = 0
+                        
+                        if(rows[i] == ',' or rows[i] == ';'):
                             
                             if(num):
                                 x = round(float(string)/1016*25.4,2)
@@ -78,22 +79,25 @@ class Hpgl:
                                 
                                 if runs == 0:
                                     self.radial_hpgl.put(x)
+                                    self.solenoid_hpgl.put(sol_pos)
                                     runs = 1
                                 elif runs == 1:
                                     self.theta_hpgl.put(y)
                                     runs = 0
                                     
-                            elif(pen_flag):
+                            # elif(pen_flag):
                                 
-                                if runs == 0:
-                                    self.radial_hpgl.put(string)
-                                elif runs == 1:
-                                    self.theta_hpgl.put(string)
+                            #     if runs == 0:
+                            #         self.radial_hpgl.put(string)
+                            #     elif runs == 1:
+                            #         self.theta_hpgl.put(string)
                                 
                             string = ''
                             num = False
-                            pen_flag = False
+                        
+                        print(sol_pos)
                             
+                    
                     i += 1
                                
                        
@@ -103,29 +107,32 @@ class Hpgl:
                 
     def convert_data(self):
         
-        radial_data = []
-        theta_data = []
+        x_data = []
+        y_data = []
+        theta = 0
+        theta = 0
         
         while self.radial_hpgl.any():
-            radial_data.append(self.radial_hpgl.get())
+            y_data.append(self.radial_hpgl.get())
          
         while self.theta_hpgl.any():
-            theta_data.append(self.theta_hpgl.get())
+            x_data.append(self.theta_hpgl.get())
             
-        for i in range (0, len(radial_data)):
+        print('Length X: ', len(x_data))
+        print('Length Y: ', len(y_data))
+        
+        for i in range (0, len(x_data)):
            
             # Convert Cartesian Cordiantes
-            self.R = ((radial_data[i])**2 + (theta_data[i])**2)**(.5) + self.offset
-            self.rad_enc1 = self.rotation*(self.R - self.offset)/self.pitch
+            R_T = ((x_data[i] + self.offset_x - self.offset_x*m.sin(m.pi/2 - theta))**2 + (y_data[i] + self.offset_y + self.offset_x*m.cos(m.pi/2-theta))**2)**(.5)
+            R_desired = R_T - self.offset_y
+            self.rad_enc1 = self.rotation*(R_desired)/self.pitch
             
-            try:
-                self.theta = m.atan(theta_data[i]/radial_data[i])
-                print(self.theta)
+            theta = m.atan((x_data[i]+self.offset_x)/(y_data[i] + self.offset_y)) - m.atan(self.offset_x/R_T)
                 
-            except:
-                self.theta = m.pi/2
+           
                     
-            self.rad_enc2 = (self.R_main/self.R_wheel)*self.theta*self.rotation/(2*m.pi)
+            self.rad_enc2 = (self.R_main/self.R_wheel)*theta*self.rotation/(2*m.pi)
             
             self.radial_hpgl.put(self.rad_enc1)
             self.theta_hpgl.put(self.rad_enc2)
@@ -133,8 +140,8 @@ class Hpgl:
     def convert_point(self, X, Y):
             
             # Convert Cartesian Cordiantes
-            self.R = (X**2 + Y**2)**(.5) + self.offset
-            self.rad_enc1 = self.rotation*(self.R - self.offset)/self.pitch
+            self.R = ((X + self.offset_x)**2 + (Y+self.offset_y)**2)**(.5)
+            self.rad_enc1 = self.rotation*(self.R - self.offset_y)/self.pitch
             
             try:
                 self.theta = m.atan(Y/X)

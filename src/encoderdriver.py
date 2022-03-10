@@ -106,11 +106,11 @@ class EncoderDriver():
 if __name__ == "__main__":
     
     ## my_encoder1 Encoder object 1.
-    #my_encoder1 = EncoderDriver(pyb.Pin.board.PB6, pyb.Pin.board.PB7, 4)
+    my_encoder1 = EncoderDriver(pyb.Pin.board.PB6, pyb.Pin.board.PB7, 4)
     
     ## my_encoder2 Encoder object 2.
     my_encoder2 = EncoderDriver(pyb.Pin.board.PC6, pyb.Pin.board.PC7, 8)
     
     while True:
-        my_encoder2.update_delta()
-        print(my_encoder2.get_position())
+        my_encoder1.update_delta()
+        print(my_encoder1.get_position())

@@ -6,6 +6,7 @@ Created on Sat Mar  5 19:26:26 2022
 """
 
 import pyb
+import time
 
 class Solenoid:
     
@@ -17,3 +18,10 @@ class Solenoid:
         
     def pen_up(self):
         self.pin1.low()
+        
+if __name__ == "__main__":
+    my_sol = Solenoid(pyb.Pin.board.PC4)
+    
+    my_sol.pen_down()
+    time.sleep(3)
+    my_sol.pen_up()

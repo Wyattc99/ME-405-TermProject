@@ -11,9 +11,11 @@ from positioncontrol import PositionControlTask
 from encoderdriver import EncoderDriver
 from motordriver import MotorDriver
 from limit_switch import Limit_Switch
+from solenoid import Solenoid
 import pyb
 import gc
 import read_plotter
+import time
 
 def zero_position():
     """!
@@ -26,37 +28,54 @@ def zero_position():
     zero_B = False
     print('Beginning Zeroing Proccess')
     
+    state = 1
+    
     while True:
         
         # if (limit_A.check_limit()):
         #    210, 297 mm
         # set the duty to be constant until it hits the switch for motor A
-        if limit_flag_A == False and zero_A == False:
-            motor_A.set_duty_cycle(50)
-        elif limit_flag_A == True:
-            motor_A.set_duty_cycle(0)
-            zero_A = True
-            print('Zero of Motor A complete')
-        else:
-            pass
         
+        if (state == 0):
+            limit_flag_A.put(limit_A.check_limit())
+            
+            if limit_flag_A.get() == 0 and zero_A == False:
+                print ("LimA not pressed")
+                #motor_A.set_duty_cycle(40)
+            elif limit_flag_A.get() == 1:
+                motor_A.set_duty_cycle(0)
+                zero_A = True
+                time.sleep(5)
+                state = 1
+                enc_A.set_position(-1000)
+                enc_B.set_position(-1000)
+                print ("LimA pressed!!")
+        if (state == 1):
         # set the duty to be constant until it hits the switch for motor B
-        if limit_flag_B ==False and zero_B == False:
-            motor_B.set_duty_cycle(50)
-        elif limit_flag_B == True:
-            motor_B.set_duty_cycle(0)
-            zero_B = True
-            print('Zero of Motor B complete')
-        else:
+            print(limit_flag_B.get())
+            limit_flag_B.put(limit_B.check_limit())
+            if limit_flag_B.get() == 0 and zero_B == False:
+                pass
+                motor_B.set_duty_cycle(45)
+            elif limit_flag_B.get() == 1:
+                motor_B.set_duty_cycle(0)
+                zero_B = True
+                
+                state = 2
+                
+                
+        
+        if (state == 2):
+            print(enc_A.get_position())
+            print(enc_B.get_position())
+            flag_zero.put(1)
+            state=3
+            
+        if (state==3):
             pass
-        
-        if zero_A == True and zero_B == True:
-            break
-        
+            
+        yield(0)
     # Set the encoder position Values to Zero
-    enc_A.set_position(0)
-    enc_B.set_position(0)
-    print('The Machine is has been calibrated')
     
 def update_pwm_radial ():
     """!
@@ -67,12 +86,16 @@ def update_pwm_radial ():
     
     ## State varible used to signal program whether to collect data, print
     #  data, or terminate program.
-    state = 0
+    state = 5
     
     while True:
         
         ## Updates Current Time
-        if(state == 0):
+        if (state == 5):
+            if (flag_zero.get() == 1):
+                state = 0
+                
+        elif(state == 0):
             
             # Runs position control function from positioncontrol.py
             control_radial.position_control()
@@ -80,11 +103,26 @@ def update_pwm_radial ():
             
             # if (limit_A.check_limit()):
             #     state = 1
+            if(radial_hpgl.empty()):
+                state = 1
                 
-        if(state == 1):
+            if(flag_radial.get() == 0):
+                state = 2
+        
+        elif(state == 1):
+            motor_B.set_duty_cycle(0)
+            
+        elif(state == 2):
+            motor_B.set_duty_cycle(0)
+            
+            if(flag_radial.get() == 1):
+                state = 0
+                
+        elif(state == 3):
             print('Limit Has been hit!')
             state = 0
 
+        #print('State: ', state)
         yield (0)
         
 def update_pwm_theta ():
@@ -96,68 +134,144 @@ def update_pwm_theta ():
     
     ## State varible used to signal program whether to collect data, print
     #  data, or terminate program.
-    state = 0
+    state = 5
     
     while True:
         
+        if (state == 5):
+            if (flag_zero.get() == 1):
+                state = 0
+                
         ## Updates Current Time
-        if(state == 0):
+        elif(state == 0):
             
             # Runs position control function from positioncontrol.py
             control_theta.position_control()
-            print('Updating PWM')
-            print('Error: ', error_theta.get())
+ #           print('Error: ', error_theta.get())
             
             # if (limit_B.check_limit()):
             #     state = 1
-                
-        if(state == 1):
-            print('Limit Has been hit!')
+            if(theta_hpgl.empty()):
+                    state = 1
+                    
+            if(flag_theta.get() == 0):
+                state = 2
+        
+        elif(state == 1):
+            motor_A.set_duty_cycle(0)
+            
+        elif(state == 2):
+            motor_A.set_duty_cycle(0)
+            
+            if(flag_theta.get() == 1):
+                state = 0
+            
+        elif(state == 3):
+            #print('Limit Has been hit!')
             state = 0
 
         yield (0)
         
 def get_setpoint_r ():
     
-    state = 0
+    state = 5
         
     while True:
         
-        if(state == 0):
+        
+        if (state == 5):
+            if (flag_zero.get() == 1):
+                state = 0
+                
+        elif(state == 0):
             
-            set_point_r.put(-1*radial_hpgl.get()-16000)
-            print('Radial Set Point: ', set_point_r.get())
+            set_point_r.put(radial_hpgl.get())
+            set_point_theta.put(theta_hpgl.get())
+           # print('Radial Set Point: ', set_point_r.get())
             state = 1
             
         elif(state == 1):
         
-            print('Checking for error!!!! ', error_r.get())
-            condition = control_radial.check_error()
+            #print('Checking for error!!!! ', error_r.get())
+            condition1 = control_radial.check_error()
             
-            if (condition == True):
+            if(condition1 == True):
+                state = 2
+                
+        elif(state == 2):
+            flag_radial.put(0)
+            condition2 = control_theta.check_error()
+            
+            if (condition2 == True):
                 state = 0
+                flag_radial.put(1)
+                print('!!!!!!!!!!!!!!!!! Checkpoint !!!!!!!!!!!!!!!!!')
+                sol_pos = solenoid_hpgl.get()
+                print('Sol: ', sol_pos)
+                if sol_pos == 0:
+                    my_sol.pen_up()
+                elif sol_pos==1:
+                    my_sol.pen_down()
+            
+        #     if (condition1 == True):
+        #         state = 2
+                
+        # elif(state == 2):
+        #     motor_B.set_duty_cycle(0)
+        #     condition2 = control_theta.check_error()
+            
+        #     if(condition2 == True):
+        #         state = 0
                 
         yield(0)
                 
 def get_setpoint_theta ():
     
-    state = 0
+    state = 5
         
     while True:
         
-        if(state == 0):
-            set_point_theta.put(-1*theta_hpgl.get()-16000)
-            print('Theta Set Point: ', set_point_theta.get())
+        if (state == 5):
+            if (flag_zero.get() == 1):
+                state = 0
+                
+        elif(state == 0):
+            set_point_theta.put(theta_hpgl.get())
+            #print('Theta Set Point: ', set_point_theta.get())
             state = 1
             
         elif(state == 1):
         
-            condition = control_theta.check_error()
+            condition2 = control_theta.check_error()
             
-            if (condition == True):
-                state = 0
+            if (condition2 == True):
+                state = 2
                 
+        elif(state == 2):
+            flag_theta.put(0)
+            condition1 = control_radial.check_error()
+            
+            if (condition1 == True):
+                state = 0
+                flag_theta.put(1)
+                print('!!!!!!!!!!!!!!!!! Checkpoint !!!!!!!!!!!!!!!!!')
+        
+        #print(state)        
         yield(0)
+        
+def solenoid_control():
+    print('Sol')
+    while True:
+        if flag_radial.get(0) and flag_theta.get(0):
+            sol_pos = solenoid_hpgl.get()
+            print(sol_pos)
+            if sol_pos == 0:
+                my_sol.pen_up()
+            elif sol_pos==1:
+                my_sol.pen_down()
+    
+        yield (0)
+    
 
 if __name__ == "__main__":
     print ('\033[2JTesting ME405 stuff in cotask.py and task_share.py\r\n'
@@ -167,6 +281,8 @@ if __name__ == "__main__":
                                       overwrite = False, name = 1)
     
     theta_hpgl = task_share.Queue('f', size = 250, thread_protect = False,
+                                      overwrite = False, name = 2)
+    solenoid_hpgl = task_share.Queue('f', size = 250, thread_protect = False,
                                       overwrite = False, name = 2)
     
     set_point_r = task_share.Share ('f', thread_protect = False, name = "Radial Set Point")
@@ -181,7 +297,7 @@ if __name__ == "__main__":
     
     limit_flag_B = task_share.Share ('i', thread_protect = False, name = "Flag for Limit Switch B")
     
-    offset = 190.5 # offset in mm
+    flag_zero = task_share.Share ('i', thread_protect = False, name = "System is zeroed")
     
     ## Creates the motor object for motor B
     motor_B = MotorDriver(pyb.Pin.board.PA0, pyb.Pin.board.PA1, pyb.Pin.board.PC1, 5)
@@ -196,22 +312,28 @@ if __name__ == "__main__":
     enc_A = EncoderDriver(pyb.Pin.board.PB6, pyb.Pin.board.PB7, 4)
     
     ## Create the position control object for system A
-    control_theta = PositionControlTask(motor_A, enc_A, error_theta, set_point_theta, 40)    # controller for theta direction
+    control_theta = PositionControlTask(motor_A, enc_A, error_theta, set_point_theta, .005)    # controller for theta direction
     
     ## Creates the position control object for system B
-    control_radial = PositionControlTask(motor_B, enc_B, error_r, set_point_r, 60) # controller for radial direction
+    control_radial = PositionControlTask(motor_B, enc_B, error_r, set_point_r, .01) # controller for radial direction
     
     limit_A = Limit_Switch(pyb.Pin.board.PC2)
     
     limit_B = Limit_Switch(pyb.Pin.board.PB0)
     
-    my_hpgl = read_plotter.Hpgl(radial_hpgl, theta_hpgl, offset)
+    my_sol = Solenoid(pyb.Pin.board.PC4)
+    
+    my_hpgl = read_plotter.Hpgl(radial_hpgl, theta_hpgl, solenoid_hpgl, 85, 195)
     
     my_hpgl.read_data()
     
     my_hpgl.convert_data()
     
     origin = my_hpgl.convert_point(210,297)
+    
+    flag_theta = task_share.Share ('i', thread_protect = False, name = "Flag Theta Set is reached")
+    
+    flag_radial = task_share.Share ('i', thread_protect = False, name = "Flag Radial Set is reached")
     
     print(origin)
     
@@ -231,13 +353,18 @@ if __name__ == "__main__":
     task4 = cotask.Task (get_setpoint_theta, name = 'Theta Set Point Control', priority = 1, 
                              period = 10, profile = True, trace = False)
     
+    ## Task 2 used to operate motor 2 function task
+    task5 = cotask.Task (zero_position, name = 'Zero Position', priority = 1, 
+                             period = 10, profile = True, trace = False)
+    
     gc.collect()
         
     # Add tasks to cotask schedular list
-    #cotask.task_list.append (task1)
+    cotask.task_list.append (task1)
     cotask.task_list.append (task2)
-    #cotask.task_list.append (task3)
+    cotask.task_list.append (task3)
     cotask.task_list.append (task4)
+    cotask.task_list.append (task5)
     
     while True:
         cotask.task_list.pri_sched()
