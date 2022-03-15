@@ -23,6 +23,7 @@ class Solenoid:
         Configures solenoid pin as output.
         @param pin1 Pin connected to the output lead of the solenoid.
         """
+        ## Pin object for what pin is hook up to the solenoid circuit
         self.pin1 = pyb.Pin(pin1, pyb.Pin.OUT_PP)
         
     def pen_down(self):
@@ -38,6 +39,7 @@ class Solenoid:
         self.pin1.low()
         
 if __name__ == "__main__":
+    ## Solenoid object for testing purposes
     my_sol = Solenoid(pyb.Pin.board.PC4)
     
     my_sol.pen_down()

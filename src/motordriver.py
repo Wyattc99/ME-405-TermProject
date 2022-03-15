@@ -57,8 +57,6 @@ class MotorDriver():
         self.t3ch2 = self.tim3.channel(2, pyb.Timer.PWM, pin = self.pinIN2A)
 
     def set_duty_cycle(self, duty):
-        
-        print('Duty Cycle: ,', duty)
         """!
         Accepts a duty cycle percentage and sets it as a pwm to nucleo channels.
         Sets the duty to move motor backwards or forwards.

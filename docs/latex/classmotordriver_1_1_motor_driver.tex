@@ -1,0 +1,73 @@
+\hypertarget{classmotordriver_1_1_motor_driver}{}\doxysection{motordriver.\+Motor\+Driver Class Reference}
+\label{classmotordriver_1_1_motor_driver}\index{motordriver.MotorDriver@{motordriver.MotorDriver}}
+
+
+Initializes motor pins allowing for the motor to rotate in both directions.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classmotordriver_1_1_motor_driver_adee06c60a6795e05d0f500e2982dbf15}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, pin1, pin2, pin\+\_\+enable, timer)
+\begin{DoxyCompactList}\small\item\em Initialize pins, timers and chanels. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_a9e14125dd9393541af2f24a505afdbf8}\label{classmotordriver_1_1_motor_driver_a9e14125dd9393541af2f24a505afdbf8}} 
+def {\bfseries set\+\_\+duty\+\_\+cycle} (self, duty)
+\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_a14a237ca77e2b992876fb59bcb3f9192}\label{classmotordriver_1_1_motor_driver_a14a237ca77e2b992876fb59bcb3f9192}} 
+def {\bfseries enable} (self)
+\begin{DoxyCompactList}\small\item\em This method is called to enable the pin on the board to allow current flow to the motor to enable motion of the motor. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_a15cb40a207cc1cd380f687201e0df947}\label{classmotordriver_1_1_motor_driver_a15cb40a207cc1cd380f687201e0df947}} 
+{\bfseries pin\+IN1A}
+\begin{DoxyCompactList}\small\item\em pin\+IN1A Set as output pin and connected to Motor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_a48660a5dd28eb7729c4e621427670455}\label{classmotordriver_1_1_motor_driver_a48660a5dd28eb7729c4e621427670455}} 
+{\bfseries pin\+IN2A}
+\begin{DoxyCompactList}\small\item\em pin\+IN2A Set as output pin and connected to Motor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_a0772f245b60b89689e7a74348c3e6edd}\label{classmotordriver_1_1_motor_driver_a0772f245b60b89689e7a74348c3e6edd}} 
+{\bfseries pin\+ENOCDA}
+\begin{DoxyCompactList}\small\item\em pin\+ENOCDA Set as PULL\+\_\+\+UP pin to enable motor \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_a65664d38532abdb52deb92b52449fc13}\label{classmotordriver_1_1_motor_driver_a65664d38532abdb52deb92b52449fc13}} 
+{\bfseries tim3}
+\begin{DoxyCompactList}\small\item\em tim3 is the timer for motor control \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_ae49b7f934665a9091e814af344603153}\label{classmotordriver_1_1_motor_driver_ae49b7f934665a9091e814af344603153}} 
+{\bfseries t3ch1}
+\begin{DoxyCompactList}\small\item\em t3ch1 Sets input pin1 on timer 3 channel 1 to control PWM \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_aaae5e6aa93d51a29da1fb89133fc2235}\label{classmotordriver_1_1_motor_driver_aaae5e6aa93d51a29da1fb89133fc2235}} 
+{\bfseries t3ch2}
+\begin{DoxyCompactList}\small\item\em t3ch2 Sets input pin1 on timer 3 channel 2 to control PWM \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Initializes motor pins allowing for the motor to rotate in both directions. 
+
+Can initialize multiple motors because each motor object will have its own pins, timers, and channels. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmotordriver_1_1_motor_driver_adee06c60a6795e05d0f500e2982dbf15}\label{classmotordriver_1_1_motor_driver_adee06c60a6795e05d0f500e2982dbf15}} 
+\index{motordriver.MotorDriver@{motordriver.MotorDriver}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!motordriver.MotorDriver@{motordriver.MotorDriver}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def motordriver.\+Motor\+Driver.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{pin1,  }\item[{}]{pin2,  }\item[{}]{pin\+\_\+enable,  }\item[{}]{timer }\end{DoxyParamCaption})}
+
+
+
+Initialize pins, timers and chanels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin1} & First pin connected to motor. \\
+\hline
+{\em pin2} & Second pin connected to motor. \\
+\hline
+{\em pin\+\_\+enable} & Enables motor to have a duty cycle set. \\
+\hline
+{\em timer} & Timer number specified from datasheet for pins used. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{motordriver_8py}{motordriver.\+py}}\end{DoxyCompactItemize}

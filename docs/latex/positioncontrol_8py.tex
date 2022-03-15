@@ -1,0 +1,30 @@
+\hypertarget{positioncontrol_8py}{}\doxysection{src/positioncontrol.py File Reference}
+\label{positioncontrol_8py}\index{src/positioncontrol.py@{src/positioncontrol.py}}
+
+
+Control Motor\textquotesingle{}s position based on desired HPGL set points.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task}{positioncontrol.\+Position\+Control\+Task}}
+\begin{DoxyCompactList}\small\item\em This class contains the methods to create a feed back control system using a motor and encoder. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Control Motor\textquotesingle{}s position based on desired HPGL set points. 
+
+The file can check if the error between a motor position and the setpoint is within reasonable limits and flag for the next setpoint. We use a simple proportional controller to set a proper duty cycle based on the magnitude of the error. \begin{DoxyAuthor}{Author}
+Jacob Wong 
+
+Wyatt Conner 
+
+Jameson Spitz 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+3-\/Mar-\/22 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+by Jameson Spitz all rights reserved 
+\end{DoxyCopyright}

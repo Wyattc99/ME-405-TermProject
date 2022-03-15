@@ -1,0 +1,120 @@
+\hypertarget{classencoderdriver_1_1_encoder_driver}{}\doxysection{encoderdriver.\+Encoder\+Driver Class Reference}
+\label{classencoderdriver_1_1_encoder_driver}\index{encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}}
+
+
+Initializes encoder pins, timer, and channel.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classencoderdriver_1_1_encoder_driver_a88dda00538d84ed9c8c356e578f4cdf2}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classencoderdriver_1_1_encoder_driver_a6bfc36dbc4037a191f256bff4098818c}{pin\+A1}}, \mbox{\hyperlink{classencoderdriver_1_1_encoder_driver_a9a80751c1b928181955592ccbac86b67}{pin\+A2}}, timer)
+\begin{DoxyCompactList}\small\item\em Initialize pins, timers and channels. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classencoderdriver_1_1_encoder_driver_a666fce6474eeafc32ee7aefa1d12acba}{update\+\_\+delta}} (self)
+\begin{DoxyCompactList}\small\item\em Updates encoder value by adding delta, the change in position, to our position variable. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a719975eb664b1a0de09c1bf6cc6feb69}\label{classencoderdriver_1_1_encoder_driver_a719975eb664b1a0de09c1bf6cc6feb69}} 
+def {\bfseries get\+\_\+position} (self)
+\begin{DoxyCompactList}\small\item\em Returns the current position of encoder. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classencoderdriver_1_1_encoder_driver_aac194490f5f555c18c241464fbfdedef}{set\+\_\+position}} (self, val)
+\begin{DoxyCompactList}\small\item\em Overwrites the old position of encoder and sets it to a new position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a6bfc36dbc4037a191f256bff4098818c}\label{classencoderdriver_1_1_encoder_driver_a6bfc36dbc4037a191f256bff4098818c}} 
+{\bfseries pin\+A1}
+\begin{DoxyCompactList}\small\item\em sets pin\+A1 to input pin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a9a80751c1b928181955592ccbac86b67}\label{classencoderdriver_1_1_encoder_driver_a9a80751c1b928181955592ccbac86b67}} 
+{\bfseries pin\+A2}
+\begin{DoxyCompactList}\small\item\em sets pin\+A2 to input pin. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a6c0ab64469c3e746e7c525fa47c83364}\label{classencoderdriver_1_1_encoder_driver_a6c0ab64469c3e746e7c525fa47c83364}} 
+{\bfseries tim4}
+\begin{DoxyCompactList}\small\item\em sets up timer for pins with specified period. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a28daa6065529ce1c4114bc88f1b025c7}\label{classencoderdriver_1_1_encoder_driver_a28daa6065529ce1c4114bc88f1b025c7}} 
+{\bfseries t4ch1}
+\begin{DoxyCompactList}\small\item\em Creates timer channel 1 object for pin\+A1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a78fd4f03188ee723a786cefe875a63db}\label{classencoderdriver_1_1_encoder_driver_a78fd4f03188ee723a786cefe875a63db}} 
+{\bfseries t4ch2}
+\begin{DoxyCompactList}\small\item\em Creates timer channel 1 object for pin\+A1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a7c6e23f8423ace8f142b81d465e7a0bb}\label{classencoderdriver_1_1_encoder_driver_a7c6e23f8423ace8f142b81d465e7a0bb}} 
+{\bfseries per}
+\begin{DoxyCompactList}\small\item\em per is the tick count at which the encoder resets. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classencoderdriver_1_1_encoder_driver_a64dc618638ff1c726d3ee9f43ead80d9}{old\+\_\+tick}}
+\begin{DoxyCompactList}\small\item\em old\+\_\+tick tracks the previous tick count to count position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_abc928f2299ae117c8cad9da54b6ddd64}\label{classencoderdriver_1_1_encoder_driver_abc928f2299ae117c8cad9da54b6ddd64}} 
+{\bfseries position}
+\begin{DoxyCompactList}\small\item\em position stores how many ticks the encoder has seen. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Initializes encoder pins, timer, and channel. 
+
+Allows for multiple encoders to be configured each with different timers and pins. Can update motor position by updating how many ticks are seen by the encoder. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a88dda00538d84ed9c8c356e578f4cdf2}\label{classencoderdriver_1_1_encoder_driver_a88dda00538d84ed9c8c356e578f4cdf2}} 
+\index{encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def encoderdriver.\+Encoder\+Driver.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{pin\+A1,  }\item[{}]{pin\+A2,  }\item[{}]{timer }\end{DoxyParamCaption})}
+
+
+
+Initialize pins, timers and channels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin\+A1} & First pin connected to encoder. \\
+\hline
+{\em pin\+A2} & Second pin connected to encoder. \\
+\hline
+{\em timer} & Sets up timer for encoder pins. \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_aac194490f5f555c18c241464fbfdedef}\label{classencoderdriver_1_1_encoder_driver_aac194490f5f555c18c241464fbfdedef}} 
+\index{encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}!set\_position@{set\_position}}
+\index{set\_position@{set\_position}!encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}}
+\doxysubsubsection{\texorpdfstring{set\_position()}{set\_position()}}
+{\footnotesize\ttfamily def encoderdriver.\+Encoder\+Driver.\+set\+\_\+position (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{val }\end{DoxyParamCaption})}
+
+
+
+Overwrites the old position of encoder and sets it to a new position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em val} & The position encoder is set too. \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a666fce6474eeafc32ee7aefa1d12acba}\label{classencoderdriver_1_1_encoder_driver_a666fce6474eeafc32ee7aefa1d12acba}} 
+\index{encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}!update\_delta@{update\_delta}}
+\index{update\_delta@{update\_delta}!encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}}
+\doxysubsubsection{\texorpdfstring{update\_delta()}{update\_delta()}}
+{\footnotesize\ttfamily def encoderdriver.\+Encoder\+Driver.\+update\+\_\+delta (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Updates encoder value by adding delta, the change in position, to our position variable. 
+
+Handles overflow by adding or subtracting the period from delta when delta exceeds half the period. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classencoderdriver_1_1_encoder_driver_a64dc618638ff1c726d3ee9f43ead80d9}\label{classencoderdriver_1_1_encoder_driver_a64dc618638ff1c726d3ee9f43ead80d9}} 
+\index{encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}!old\_tick@{old\_tick}}
+\index{old\_tick@{old\_tick}!encoderdriver.EncoderDriver@{encoderdriver.EncoderDriver}}
+\doxysubsubsection{\texorpdfstring{old\_tick}{old\_tick}}
+{\footnotesize\ttfamily encoderdriver.\+Encoder\+Driver.\+old\+\_\+tick}
+
+
+
+old\+\_\+tick tracks the previous tick count to count position. 
+
+new\+\_\+tick stores the current tick valus the encoder reads.
+
+delta tracks the change in position since the last time the encoder updated. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{encoderdriver_8py}{encoderdriver.\+py}}\end{DoxyCompactItemize}

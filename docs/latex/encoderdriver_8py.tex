@@ -1,0 +1,39 @@
+\hypertarget{encoderdriver_8py}{}\doxysection{src/encoderdriver.py File Reference}
+\label{encoderdriver_8py}\index{src/encoderdriver.py@{src/encoderdriver.py}}
+
+
+This file configures Nucleo pins, timers, and channels for so that it can send voltage to a motor.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classencoderdriver_1_1_encoder_driver}{encoderdriver.\+Encoder\+Driver}}
+\begin{DoxyCompactList}\small\item\em Initializes encoder pins, timer, and channel. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{encoderdriver_8py_af3a4bb5350815afb8f1333f182316c40}\label{encoderdriver_8py_af3a4bb5350815afb8f1333f182316c40}} 
+{\bfseries encoderdriver.\+my\+\_\+encoder1} = Encoder\+Driver(pyb.\+Pin.\+board.\+PB6, pyb.\+Pin.\+board.\+PB7, 4)
+\begin{DoxyCompactList}\small\item\em my\+\_\+encoder1 Encoder object 1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{encoderdriver_8py_abfefff0f805f0b7f8a9dd10919517436}\label{encoderdriver_8py_abfefff0f805f0b7f8a9dd10919517436}} 
+{\bfseries encoderdriver.\+my\+\_\+encoder2} = Encoder\+Driver(pyb.\+Pin.\+board.\+PC6, pyb.\+Pin.\+board.\+PC7, 8)
+\begin{DoxyCompactList}\small\item\em my\+\_\+encoder2 Encoder object 2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file configures Nucleo pins, timers, and channels for so that it can send voltage to a motor. 
+
+Can send a PWM duty cycle to the motor to control how fast the motor spins. Uses a L6206 motor shield to control motor direction. \begin{DoxyAuthor}{Author}
+Jacob Wong 
+
+Wyatt Conner 
+
+Jameson Spitz 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26-\/Jan-\/22 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+by Jacob Wong all rights reserved 
+\end{DoxyCopyright}

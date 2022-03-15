@@ -1,0 +1,61 @@
+\hypertarget{classlimit__switch_1_1_limit___switch}{}\doxysection{limit\+\_\+switch.\+Limit\+\_\+\+Switch Class Reference}
+\label{classlimit__switch_1_1_limit___switch}\index{limit\_switch.Limit\_Switch@{limit\_switch.Limit\_Switch}}
+
+
+Initializes the normally open pin on the Nucleo as an input pin.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classlimit__switch_1_1_limit___switch_a5271e76e468a981a841425c15224d325}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classlimit__switch_1_1_limit___switch_a706feddb61f135ba026ab7067ae30ce9}{pin1}})
+\begin{DoxyCompactList}\small\item\em Configures limit switch input pin. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classlimit__switch_1_1_limit___switch_af7bf0ffa4ddaef49356a3b7c188dfc41}{check\+\_\+limit}} (self)
+\begin{DoxyCompactList}\small\item\em Checks the value of the limit switch output. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classlimit__switch_1_1_limit___switch_a706feddb61f135ba026ab7067ae30ce9}\label{classlimit__switch_1_1_limit___switch_a706feddb61f135ba026ab7067ae30ce9}} 
+{\bfseries pin1}
+\begin{DoxyCompactList}\small\item\em Pin used to read incoming signal from limit switch. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Initializes the normally open pin on the Nucleo as an input pin. 
+
+Contains a method to check if the normally open pin has been triggered high. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classlimit__switch_1_1_limit___switch_a5271e76e468a981a841425c15224d325}\label{classlimit__switch_1_1_limit___switch_a5271e76e468a981a841425c15224d325}} 
+\index{limit\_switch.Limit\_Switch@{limit\_switch.Limit\_Switch}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!limit\_switch.Limit\_Switch@{limit\_switch.Limit\_Switch}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def limit\+\_\+switch.\+Limit\+\_\+\+Switch.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{pin1 }\end{DoxyParamCaption})}
+
+
+
+Configures limit switch input pin. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pin1} & The nucleo pin wired to the normally open limit switch connection \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classlimit__switch_1_1_limit___switch_af7bf0ffa4ddaef49356a3b7c188dfc41}\label{classlimit__switch_1_1_limit___switch_af7bf0ffa4ddaef49356a3b7c188dfc41}} 
+\index{limit\_switch.Limit\_Switch@{limit\_switch.Limit\_Switch}!check\_limit@{check\_limit}}
+\index{check\_limit@{check\_limit}!limit\_switch.Limit\_Switch@{limit\_switch.Limit\_Switch}}
+\doxysubsubsection{\texorpdfstring{check\_limit()}{check\_limit()}}
+{\footnotesize\ttfamily def limit\+\_\+switch.\+Limit\+\_\+\+Switch.\+check\+\_\+limit (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Checks the value of the limit switch output. 
+
+If read high, the method returns 1. If read low, the method returns 0. 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{limit__switch_8py}{limit\+\_\+switch.\+py}}\end{DoxyCompactItemize}

@@ -1,0 +1,122 @@
+\hypertarget{classpositioncontrol_1_1_position_control_task}{}\doxysection{positioncontrol.\+Position\+Control\+Task Class Reference}
+\label{classpositioncontrol_1_1_position_control_task}\index{positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}}
+
+
+This class contains the methods to create a feed back control system using a motor and encoder.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_aec5d1ade24b58d4cec935608b18c99e3}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_ae082b6d9d7e7b6bbab310a87e68601e1}{Motor}}, \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a2891da38029f6534360899c118205df9}{Encoder}}, \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a572e51953bfe16d9d5b5590861a92557}{error}}, \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a89ac799f3e03664d1116f5afdf406933}{set\+\_\+point}}, \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a77617fb535bbbb50d8065f5142da6f25}{gain}})
+\begin{DoxyCompactList}\small\item\em This method initializes the position control object so we can create multiple objects for various encoder motor systems. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a89ac799f3e03664d1116f5afdf406933}{set\+\_\+point}} (self)
+\begin{DoxyCompactList}\small\item\em This method is used to set the desired position of the encoder for the motor to achieve, this is the input to our control system. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a64f18f6c7ace2f2b0c03a1b1689dc8bf}{set\+\_\+gain}} (self)
+\begin{DoxyCompactList}\small\item\em This method is used to set the gain of the porportional controller for the position controller. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a0314ed60a2a83608cab7fa63e56eb67d}{position\+\_\+control}} (self)
+\begin{DoxyCompactList}\small\item\em This method used in an external loop from the task scheduler to control the motor and encoder pair for the desired location. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a83b831cdf60672f28d34fbaa634c46ca}{check\+\_\+error}} (self)
+\begin{DoxyCompactList}\small\item\em This method checks that our error in units of ticks is within reasonable limit. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_ae082b6d9d7e7b6bbab310a87e68601e1}\label{classpositioncontrol_1_1_position_control_task_ae082b6d9d7e7b6bbab310a87e68601e1}} 
+{\bfseries Motor}
+\begin{DoxyCompactList}\small\item\em This variable passes the motor object into the position control object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a2891da38029f6534360899c118205df9}\label{classpositioncontrol_1_1_position_control_task_a2891da38029f6534360899c118205df9}} 
+{\bfseries Encoder}
+\begin{DoxyCompactList}\small\item\em This variable passes the encoder object into the position control object. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a77617fb535bbbb50d8065f5142da6f25}\label{classpositioncontrol_1_1_position_control_task_a77617fb535bbbb50d8065f5142da6f25}} 
+{\bfseries gain}
+\begin{DoxyCompactList}\small\item\em This initilizing our controllers gain as zero as it will be referenced for other methods. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a47e5eca25dc8936b9cbac7c68e821241}\label{classpositioncontrol_1_1_position_control_task_a47e5eca25dc8936b9cbac7c68e821241}} 
+{\bfseries setpoint}
+\begin{DoxyCompactList}\small\item\em This initilizes the desired position we want the motor to achieve. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a572e51953bfe16d9d5b5590861a92557}\label{classpositioncontrol_1_1_position_control_task_a572e51953bfe16d9d5b5590861a92557}} 
+{\bfseries error}
+\begin{DoxyCompactList}\small\item\em This initilizes the error variable to represent the difference of position to our actual position. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_ab7fbfdaff70eaa0065c94f2d28ec0bc2}\label{classpositioncontrol_1_1_position_control_task_ab7fbfdaff70eaa0065c94f2d28ec0bc2}} 
+{\bfseries position}
+\begin{DoxyCompactList}\small\item\em This variable is used to store the ticks value of the encoder. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classpositioncontrol_1_1_position_control_task_a8cbe2bec76ff5ef56fd929ec523220cd}{duty}}
+\begin{DoxyCompactList}\small\item\em Edit with zeroing function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class contains the methods to create a feed back control system using a motor and encoder. 
+
+the motor is acting as the the plant of the system and the encoder is the sensor of the system. This class has the methods to actually complete this by checking the position and updating the error of the system and calculating the new data of the sy 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_aec5d1ade24b58d4cec935608b18c99e3}\label{classpositioncontrol_1_1_position_control_task_aec5d1ade24b58d4cec935608b18c99e3}} 
+\index{positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def positioncontrol.\+Position\+Control\+Task.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{Motor,  }\item[{}]{Encoder,  }\item[{}]{error,  }\item[{}]{set\+\_\+point,  }\item[{}]{gain }\end{DoxyParamCaption})}
+
+
+
+This method initializes the position control object so we can create multiple objects for various encoder motor systems. 
+
+This also initalizes our object variables 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a83b831cdf60672f28d34fbaa634c46ca}\label{classpositioncontrol_1_1_position_control_task_a83b831cdf60672f28d34fbaa634c46ca}} 
+\index{positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}!check\_error@{check\_error}}
+\index{check\_error@{check\_error}!positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}}
+\doxysubsubsection{\texorpdfstring{check\_error()}{check\_error()}}
+{\footnotesize\ttfamily def positioncontrol.\+Position\+Control\+Task.\+check\+\_\+error (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+This method checks that our error in units of ticks is within reasonable limit. 
+
+If the error is within that reasonable limit, the method returns a flag for the main file to iterate to the next setpoint. \mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a0314ed60a2a83608cab7fa63e56eb67d}\label{classpositioncontrol_1_1_position_control_task_a0314ed60a2a83608cab7fa63e56eb67d}} 
+\index{positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}!position\_control@{position\_control}}
+\index{position\_control@{position\_control}!positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}}
+\doxysubsubsection{\texorpdfstring{position\_control()}{position\_control()}}
+{\footnotesize\ttfamily def positioncontrol.\+Position\+Control\+Task.\+position\+\_\+control (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+This method used in an external loop from the task scheduler to control the motor and encoder pair for the desired location. 
+
+This method updates the encoder position, and calculates the error of system with the difference of the current position to the desired position, this is multiplied by the gain to calculate the duty cycle of the motor each iteration. \mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a64f18f6c7ace2f2b0c03a1b1689dc8bf}\label{classpositioncontrol_1_1_position_control_task_a64f18f6c7ace2f2b0c03a1b1689dc8bf}} 
+\index{positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}!set\_gain@{set\_gain}}
+\index{set\_gain@{set\_gain}!positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}}
+\doxysubsubsection{\texorpdfstring{set\_gain()}{set\_gain()}}
+{\footnotesize\ttfamily def positioncontrol.\+Position\+Control\+Task.\+set\+\_\+gain (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+This method is used to set the gain of the porportional controller for the position controller. 
+
+This gain is multiplied by the error of the posisiton to calculate the duty cycle to send to the motor. \mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a89ac799f3e03664d1116f5afdf406933}\label{classpositioncontrol_1_1_position_control_task_a89ac799f3e03664d1116f5afdf406933}} 
+\index{positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}!set\_point@{set\_point}}
+\index{set\_point@{set\_point}!positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}}
+\doxysubsubsection{\texorpdfstring{set\_point()}{set\_point()}}
+{\footnotesize\ttfamily def positioncontrol.\+Position\+Control\+Task.\+set\+\_\+point (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+This method is used to set the desired position of the encoder for the motor to achieve, this is the input to our control system. 
+
+It is set up to take this value in units of encoder ticks. Each rotation is 16,000 ticks. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classpositioncontrol_1_1_position_control_task_a8cbe2bec76ff5ef56fd929ec523220cd}\label{classpositioncontrol_1_1_position_control_task_a8cbe2bec76ff5ef56fd929ec523220cd}} 
+\index{positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}!duty@{duty}}
+\index{duty@{duty}!positioncontrol.PositionControlTask@{positioncontrol.PositionControlTask}}
+\doxysubsubsection{\texorpdfstring{duty}{duty}}
+{\footnotesize\ttfamily positioncontrol.\+Position\+Control\+Task.\+duty}
+
+
+
+Edit with zeroing function. 
+
+Duty is represents the duty cycle being sent to the motor object 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\mbox{\hyperlink{positioncontrol_8py}{positioncontrol.\+py}}\end{DoxyCompactItemize}

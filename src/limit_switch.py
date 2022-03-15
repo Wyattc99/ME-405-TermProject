@@ -36,7 +36,9 @@ class Limit_Switch:
             return 0
         
 if __name__ == "__main__":
+    ## Switch object for the Angular axis
     my_lim_A = Limit_Switch(pyb.Pin.board.PC0)
+    ## Switch object for the Radial axis
     my_lim_B = Limit_Switch(pyb.Pin.board.PB0)
     
     while True:

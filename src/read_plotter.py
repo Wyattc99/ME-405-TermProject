@@ -170,7 +170,7 @@ class Hpgl:
             theta = m.atan((x_data[i]+self.offset_x)/(y_data[i] + self.offset_y)) - m.atan(self.offset_x/R_T)                                                          # Finds theta setpoint in radians, see README
                  
            
-                    
+            ## This variable stores the radial set points that are converted from radians to encoder ticks. 
             self.rad_enc2 = (self.R_main/self.R_wheel)*theta*self.rotation/(2*m.pi)                                                                                    # Converts radians to ticks, and converts the rotation of the shaft to the rotation of the wheel.
             
             self.radial_hpgl.put(self.rad_enc1)            # Re-write setpoints into queue variables

@@ -1,8 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sat Mar  5 21:13:25 2022
+@file main.py
+The main file of the term project that creates and runs the tasks needed to control
+the 2 axis drawing robot we created. To do this we create each task as a method
+that interacts with the firmware, and these tasks are then ran using cotask. 
+@author Wyatt Conner
+@author Jacob Wong
+@author Jameson Spitz
+@date 5-March-22
+@copyright by Jameson Spitz all rights reserved
 
-@author: james
 """
 
 import cotask
@@ -19,61 +26,54 @@ import time
 
 def zero_position():
     """!
-    Task which will zero the machine to its orgin using the limit switches within
-    the assembly or our design. 
+    When this task is called it will zero the 2 axis drawing robot back to its
+    orgin which is located by 2 limit switches along its radial axis and angular
+    axis. Once each limit switch has been touched the method will terminate and
+    turn off each motor. 
     """
-    ## Zero A is a flag to show that the motor A has finished its zeroing process
-    zero_A = False
-        ## Zero B is a flab to show that the motor B has finished its zeroing process
+    
+    ## Zero B is a flab to show that the motor B has finished its zeroing process
     zero_B = False
     print('Beginning Zeroing Proccess')
     
-    state = 1
+    ## State of the Zero Position Method to determine what state the finite state machine is in
+    state = 0
     
     while True:
         
         # if (limit_A.check_limit()):
-        #    210, 297 mm
+        # 210, 297 mm
         # set the duty to be constant until it hits the switch for motor A
         
+        # Check the limit switch if it has been triggered
         if (state == 0):
-            limit_flag_A.put(limit_A.check_limit())
-            
-            if limit_flag_A.get() == 0 and zero_A == False:
-                print ("LimA not pressed")
-                #motor_A.set_duty_cycle(40)
-            elif limit_flag_A.get() == 1:
-                motor_A.set_duty_cycle(0)
-                zero_A = True
-                time.sleep(5)
-                state = 1
-                enc_A.set_position(-1000)
-                enc_B.set_position(-1000)
-                print ("LimA pressed!!")
-        if (state == 1):
         # set the duty to be constant until it hits the switch for motor B
             print(limit_flag_B.get())
             limit_flag_B.put(limit_B.check_limit())
+            
+            # Turn the motor on if the flag is off and has never been turned on
             if limit_flag_B.get() == 0 and zero_B == False:
                 pass
                 motor_B.set_duty_cycle(45)
+            
+            # Turn the motor off and set the encoder positions
             elif limit_flag_B.get() == 1:
                 motor_B.set_duty_cycle(0)
+                ## Zero_B is a flag to represent once the limit switch has been turned on once this flag will remain on to prevent oscillations of the switch
                 zero_B = True
                 enc_B.set_position(-3000)
-                #enc_B.set_position(-1000)
                 
-                state = 2
+                state = 1
                 
                 
-        
-        if (state == 2):
+        # Print the encoder positions to ensure they are zero'd
+        if (state == 1):
             print(enc_A.get_position())
             print(enc_B.get_position())
             flag_zero.put(1)
-            state=3
+            state=2
             
-        if (state==3):
+        if (state==2):
             pass
         
         print('1')
@@ -87,31 +87,27 @@ def update_pwm_radial ():
     by a generator.
     """
     
-    ## State varible used to signal program whether to collect data, print
-    #  data, or terminate program.
+    ## State varible used to signal program whether to collect data, print or when to terminate the method
     state = 5
     
     while True:
         
-        ## Updates Current Time
+        # We will remain in state 5 until the machine is zero'd to begin drawing.
         if (state == 5):
             if (flag_zero.get() == 1):
                 state = 0
-                
+        # State 0 is when we begin to control each motor for our set data points. 
         elif(state == 0):
             
             # Runs position control function from positioncontrol.py
             control_radial.position_control()
-            # print('Updating PWM')
             
-            # if (limit_A.check_limit()):
-            #     state = 1
             if(radial_hpgl.empty()):
                 state = 1
                 
             if(flag_radial.get() == 0):
                 state = 2
-        
+    
         elif(state == 1):
             motor_B.set_duty_cycle(0)
             
@@ -131,13 +127,14 @@ def update_pwm_radial ():
         
 def update_pwm_theta ():
     """!
-    Task which facilitates the motor position control method and records
-    motor 1 data in a queue. The task then prints the data which is controlled
-    by a generator.
+    This is the method that controls the motor along the angular axis of the robot.
+    This is done by updating the set point for the motor once each motor as reached
+    their previous set points. Then conduct position control on the motor until it hits
+    its new set point, then turn off the motor and wait for the radial axis to hit its set
+    point. 
     """
     
-    ## State varible used to signal program whether to collect data, print
-    #  data, or terminate program.
+    ## State varible used to signal program whether to collect data, print, data, or terminate program.
     state = 5
     
     while True:
@@ -146,15 +143,12 @@ def update_pwm_theta ():
             if (flag_zero.get() == 1):
                 state = 0
                 
-        ## Updates Current Time
+        
         elif(state == 0):
             
             # Runs position control function from positioncontrol.py
             control_theta.position_control()
- #           print('Error: ', error_theta.get())
             
-            # if (limit_B.check_limit()):
-            #     state = 1
             if(theta_hpgl.empty()):
                     state = 1
                     
@@ -171,13 +165,20 @@ def update_pwm_theta ():
                 state = 0
             
         elif(state == 3):
-            #print('Limit Has been hit!')
             state = 0
         print('3')
         yield (0)
         
 def get_setpoint_r ():
-    
+    """!
+    This method is used to control the motor along the radial axis of the robot.
+    The way this is done is that the set point is given from our read plotter file.
+    We then conduct a position control for this set point and once the motor is
+    within a window of error that is acceptable the motor will turn off and set
+    a flag that it has meet it's set point. Once both motors have meet their set
+    points they will then update to a new setpoint and do the entire process again. 
+    """
+    ## State varible used to signal program whether to collect data, print, data, or terminate program.
     state = 5
         
     while True:
@@ -191,12 +192,12 @@ def get_setpoint_r ():
             
             set_point_r.put(radial_hpgl.get())
             set_point_theta.put(theta_hpgl.get())
-           # print('Radial Set Point: ', set_point_r.get())
+            # print('Radial Set Point: ', set_point_r.get())
             state = 1
             
         elif(state == 1):
         
-            #print('Checking for error!!!! ', error_r.get())
+            ## Condition 1 checks if the radial motor is within its acceptable error limit to say it has meet its set point.
             condition1 = control_radial.check_error()
             
             if(condition1 == True):
@@ -204,6 +205,7 @@ def get_setpoint_r ():
                 
         elif(state == 2):
             flag_radial.put(0)
+            ## Condition 2 checks if the theta motor is within its acceptable error limit to say it has meet its set point. 
             condition2 = control_theta.check_error()
             print('Motor Radial')
             
@@ -217,21 +219,19 @@ def get_setpoint_r ():
                     my_sol.pen_up()
                 elif sol_pos==1:
                     my_sol.pen_down()
-            
-        #     if (condition1 == True):
-        #         state = 2
-                
-        # elif(state == 2):
-        #     motor_B.set_duty_cycle(0)
-        #     condition2 = control_theta.check_error()
-            
-        #     if(condition2 == True):
-        #         state = 0
+    
         print('4')        
         yield(0)
                 
 def get_setpoint_theta ():
+    """!
+    This method is used to update the set point of the motor on the theta axis.
+    If both motors have reached their setpoints this method will update the
+    setpoint of the theta motor. The set point data is provided from the read 
+    plotter file. 
+    """
     
+    ## State varible used to signal program whether to collect data, print, data, or terminate program.
     state = 5
         
     while True:
@@ -242,11 +242,10 @@ def get_setpoint_theta ():
                 
         elif(state == 0):
             set_point_theta.put(theta_hpgl.get())
-            #print('Theta Set Point: ', set_point_theta.get())
             state = 1
             
         elif(state == 1):
-        
+            ## Condition 2 checks if the theta motor is within its acceptable error limit to say it has meet its set point. 
             condition2 = control_theta.check_error()
             
             if (condition2 == True):
@@ -254,6 +253,7 @@ def get_setpoint_theta ():
                 
         elif(state == 2):
             flag_theta.put(0)
+            ## Condition 1 checks if the radial motor is within its acceptable error limit to say it has meet its set point.
             condition1 = control_radial.check_error()
             print('Motor Theta')
              
@@ -266,9 +266,17 @@ def get_setpoint_theta ():
         yield(0)
         
 def solenoid_control():
+    """!
+    This method is used to control the solenoild saying wheter it should be on or
+    off depending upon what the read plotter file tells it to do. The reason this
+    method exits is that the solenoid controls need to be synched up with the
+    controls of the motor so the solenoid is on when it is required. 
+    """
+    
     print('Sol')
     while True:
         if flag_radial.get(0) and flag_theta.get(0):
+            ## This variable is used to store the set point of the solenoid which is on or off. 
             sol_pos = solenoid_hpgl.get()
             print(sol_pos)
             if sol_pos == 0:
@@ -283,62 +291,80 @@ if __name__ == "__main__":
     print ('\033[2JTesting ME405 stuff in cotask.py and task_share.py\r\n'
            'Press ENTER to stop and show diagnostics.')
     
+    ## This a Queue of encoder tick set points for the radial motor converted from hpgl file.
     radial_hpgl = task_share.Queue('f', size = 250, thread_protect = False,
                                       overwrite = False, name = 1)
     
+    ## This a Queue of encoder tick set points for the angular motor converted from hpgl file.
     theta_hpgl = task_share.Queue('f', size = 250, thread_protect = False,
                                       overwrite = False, name = 2)
+    
+    ## This creates a queue for the solenoid to instruct when the solenoid should be on or off.
     solenoid_hpgl = task_share.Queue('f', size = 250, thread_protect = False,
                                       overwrite = False, name = 2)
     
+    ## This create the share object is to set the radial set point within each task for any given moment.
     set_point_r = task_share.Share ('f', thread_protect = False, name = "Radial Set Point")
     
+    ## This creates the share object is to set the theta set point within each task for any given moment.
     set_point_theta = task_share.Share ('f', thread_protect = False, name = "Theta Set Point")
     
+    ## This share object is the error of the radial encoder from its set point to set duty and determine when it has reached the set point. 
     error_r = task_share.Share ('f', thread_protect = False, name = "Radial Position Error")
     
+    ## This share object is the error of the theta encoder from its set point to set duty and determine when it has reached the set point. 
     error_theta = task_share.Share ('f', thread_protect = False, name = "Theta Position Error")
     
+    ## This create the share object is used to signal when the limit flag on the angular axis is triggered
     limit_flag_A = task_share.Share ('i', thread_protect = False, name = "Flag for Limit Switch A")
     
+    ## This create the share object is used to signal when the limit flag on the radial axis is triggered
     limit_flag_B = task_share.Share ('i', thread_protect = False, name = "Flag for Limit Switch B")
     
+    ## This creates the share object to signify once both limit flags are true to represent when the system is at the orgin.
     flag_zero = task_share.Share ('i', thread_protect = False, name = "System is zeroed")
     
-    ## Creates the motor object for motor B
+    ## Creates the motor object for motor of the radial direction
     motor_B = MotorDriver(pyb.Pin.board.PA0, pyb.Pin.board.PA1, pyb.Pin.board.PC1, 5)
     
-    ## Creates the motor object for motor A
+    ## Creates the motor object for motor of the angualr direction
     motor_A = MotorDriver(pyb.Pin.board.PB5, pyb.Pin.board.PB4, pyb.Pin.board.PA10, 3)
     
-    ## Creates the encoder object for encoder B
+    ## Creates the encoder object for encoder of the radial radial direction
     enc_B = EncoderDriver(pyb.Pin.board.PC6, pyb.Pin.board.PC7, 8)
     
-    ## Creates the encoder object for encoder A
+    ## Creates the encoder object for encoder of the angualr direction
     enc_A = EncoderDriver(pyb.Pin.board.PB6, pyb.Pin.board.PB7, 4)
     
-    ## Create the position control object for system A
+    ## Create the position control the position of the motor along the angualr axis
     control_theta = PositionControlTask(motor_A, enc_A, error_theta, set_point_theta, .006)    # controller for theta direction
     
-    ## Creates the position control object for system B
+    ## Creates the position control the position of the motor along the radial axis
     control_radial = PositionControlTask(motor_B, enc_B, error_r, set_point_r, .025) # controller for radial direction
     
+    ## Creaates the limit switch object to interact with the hardware of the switch on the angualr axis
     limit_A = Limit_Switch(pyb.Pin.board.PC2)
     
+    ## Creates the limit switch object to interact with the hardware of the switch on the radial axis
     limit_B = Limit_Switch(pyb.Pin.board.PB0)
     
+    ## Create the solenoid object to interact with the circuit connected to the solenoid to make it turn on and off
     my_sol = Solenoid(pyb.Pin.board.PC4)
     
+    ## THis create the object of the read_plotter file to send it the raw data of the hpgl to be converted to our radial and angualr set points we need.
     my_hpgl = read_plotter.Hpgl(radial_hpgl, theta_hpgl, solenoid_hpgl, 85, 195)
     
     my_hpgl.read_data()
     
     my_hpgl.convert_data()
     
+    ## This is the numerical value of our orgin of our system as it offset from the center of rotation, this value is measured in millimeters.
     origin = my_hpgl.convert_point(210,297)
     
+    ## This creates a flag that is a share object of when the set point is reached along the angualr axis.
     flag_theta = task_share.Share ('i', thread_protect = False, name = "Flag Theta Set is reached")
     
+    ## This creats a flag that is a share object of when the set point is reached along the radial axis.
     flag_radial = task_share.Share ('i', thread_protect = False, name = "Flag Radial Set is reached")
     
     print(origin)

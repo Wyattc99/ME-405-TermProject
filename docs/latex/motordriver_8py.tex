@@ -1,0 +1,39 @@
+\hypertarget{motordriver_8py}{}\doxysection{src/motordriver.py File Reference}
+\label{motordriver_8py}\index{src/motordriver.py@{src/motordriver.py}}
+
+
+This file configures Nucleo pins, timers, and channels for so that it can send voltage to a motor.  
+
+
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classmotordriver_1_1_motor_driver}{motordriver.\+Motor\+Driver}}
+\begin{DoxyCompactList}\small\item\em Initializes motor pins allowing for the motor to rotate in both directions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{motordriver_8py_ad9e5193122e62bbfef90dec601759637}\label{motordriver_8py_ad9e5193122e62bbfef90dec601759637}} 
+{\bfseries motordriver.\+motor1} = Motor\+Driver(pyb.\+Pin.\+board.\+PB5, pyb.\+Pin.\+board.\+PB4, pyb.\+Pin.\+board.\+PA10, 3)
+\begin{DoxyCompactList}\small\item\em motor1 Motor object 1. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{motordriver_8py_a6af998346fc8903e2ad3fde4cac66cfd}\label{motordriver_8py_a6af998346fc8903e2ad3fde4cac66cfd}} 
+{\bfseries motordriver.\+motor2} = Motor\+Driver(pyb.\+Pin.\+board.\+PA0, pyb.\+Pin.\+board.\+PA1, pyb.\+Pin.\+board.\+PC1, 5)
+\begin{DoxyCompactList}\small\item\em motor2 Motor object 2. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This file configures Nucleo pins, timers, and channels for so that it can send voltage to a motor. 
+
+Can send a PWM duty cycle to the motor to control how fast the motor spins. Uses a L6206 motor shield to control motor direction. \begin{DoxyAuthor}{Author}
+Jacob Wong 
+
+Wyatt Conner 
+
+Jameson Spitz 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+26-\/Jan-\/22 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+by Jameson Spitz all rights reserved 
+\end{DoxyCopyright}
