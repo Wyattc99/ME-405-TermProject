@@ -264,27 +264,6 @@ def get_setpoint_theta ():
         print('5')
         #print(state)        
         yield(0)
-        
-def solenoid_control():
-    """!
-    This method is used to control the solenoild saying wheter it should be on or
-    off depending upon what the read plotter file tells it to do. The reason this
-    method exits is that the solenoid controls need to be synched up with the
-    controls of the motor so the solenoid is on when it is required. 
-    """
-    
-    print('Sol')
-    while True:
-        if flag_radial.get(0) and flag_theta.get(0):
-            ## This variable is used to store the set point of the solenoid which is on or off. 
-            sol_pos = solenoid_hpgl.get()
-            print(sol_pos)
-            if sol_pos == 0:
-                my_sol.pen_up()
-            elif sol_pos==1:
-                my_sol.pen_down()
-    
-        yield (0)
     
 
 if __name__ == "__main__":
