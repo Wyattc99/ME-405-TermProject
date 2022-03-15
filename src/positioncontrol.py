@@ -1,10 +1,12 @@
 """!
 @file positioncontrol.py
-Control Motor's position
+Control Motor's position based on desired HPGL set points. The file can check if the error between a motor position
+and the setpoint is within reasonable limits and flag for the next setpoint. We use a simple proportional controller to
+set a proper duty cycle based on the magnitude of the error.
 @author Jacob Wong
 @author Wyatt Conner
 @author Jameson Spitz
-@date   27-Feb-2
+@date   3-Mar-22
 @copyright by Jameson Spitz all rights reserved
 """
 # from motordriver import MotorDriver
@@ -61,7 +63,7 @@ class PositionControlTask():
     
     def position_control(self):
         """!
-        This method used in an external loop to control the motor and encoder
+        This method used in an external loop from the task scheduler to control the motor and encoder
         pair for the desired location. This method updates the encoder position,
         and calculates the error of system with the difference of the current
         position to the desired position, this is multiplied by the gain to calculate
@@ -92,6 +94,10 @@ class PositionControlTask():
         print('Setpoint ----------------: ', self.setpoint.get())
         
     def check_error(self):
+        """!
+        This method checks that our error in units of ticks is within reasonable limit. If the error is 
+        within that reasonable limit, the method returns a flag for the main file to iterate to the next setpoint.
+        """
         if(abs(self.error.get()) < 3000):
            # print('!!!!!!!!!!!!!!!!Checkpoint!!!!!!!!!!!!!!!!!!')
             return True

@@ -1,8 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Mar  3 08:52:53 2022
-
-@author: james
+"""!
+@file read_plotter.py
+This file reads our HPGL setpoints from a csv file. The data is organized into two lists, the x and y coordinates. 
+@author Jacob Wong
+@author Wyatt Conner
+@author Jameson Spitz
+@date   26-Jan-22
+@copyright by Jacob Wong all rights reserved
 """
 
 import math as m
