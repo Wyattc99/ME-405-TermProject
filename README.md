@@ -23,7 +23,7 @@ bought online, 3D printed, or found in our local Cal Poly machine shops.
 ![Assembly Drawing and BOM](/Images/ASSEMBLY.JPG)
 
 ### Physical System Designed
-![System Design](/Images/SystemDesign.JPG)
+![System Design](/Images/SystemDesign.jpg)
 
 We needed 12V to power the solenoid. However,  the Nucleo is unable to provide such a voltage. 
 Therefore, we use an external 12V-DC power supply, and we constructed circuitry using a MOSFET to 
@@ -31,10 +31,10 @@ control this voltage to the solenoid. This allows us to power and unpower the so
 a pin to high or low on the microcontroller. The schematic of the circuitry is shown below.
 
 ### Solenoid Wiring Diagram (Transistor and Diode)
-![Solenoid Wiring1](/Images/Actual_Solenoid_Circuit.JPG)
+![Solenoid Wiring1](/Images/Actual_Solenoid_Circuit.jpg)
 
 ### Theoretical Wiring Diagram
-![Solenoid Wiring2](/Images/Solenoid.JPG)
+![Solenoid Wiring2](/Images/Solenoid.jpg)
 
 Lastly, a limit switch is mounted on the main shaft to establish the zero point of the radial 
 direction. Whenever the pen housing unit hits the limit switch, it sends a signal to the 
@@ -57,8 +57,8 @@ tasks, we needed to derive two kinematic equations, one for R and one for Theta.
 for these equations are pictured below.
 
 ### Inverse Kinematics Calculations
-![Kinematics Sheet 1](/Images/hand_calcs_1.JPG)
-![Kinematics Sheet 2](/Images/hand_calcs_2.JPG)
+![Kinematics Sheet 1](/Images/hand_calcs_1.jpg)
+![Kinematics Sheet 2](/Images/hand_calcs_2.jpg)
 
 Each task is run using a finite state machine (FSM). The most important FSMs are in the 'Radial 
 Position Control' and 'Theta Position Control' tasks. Both these task run using a similar FSM 
@@ -83,7 +83,7 @@ and unfortunately, our system was unable to achieve satisfactory results. The de
 drew in Inkscape was a rectangle, but the image below is the drawing that our system produced.
 
 ### Resulting Rectangle
-![Results](/Images/Results.JPG)
+![Results](/Images/Results.jpg)
 
 ## Conclusion and Discussion
 Although we were unable to create a successful 2D plotter before the deadline, we found several
