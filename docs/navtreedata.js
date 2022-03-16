@@ -25,8 +25,11 @@
 var NAVTREE =
 [
   [ "ME 405 Term Project", "index.html", [
-    [ "Software Design", "index.html#sec_intro1", null ],
-    [ "Task Diagram and Finite State Machines", "index.html#subsec_intro2", null ],
+    [ "Thsi page serves as a summary of our softeware operations, including video examples of our system response and PuTTY command window. Talsk about how tasks interacted with eachother, and contains our overall task diagram and Finite State Machine for our position control task.", "index.html", [
+      [ "Software Design", "index.html#sec_intro1", null ],
+      [ "Task Diagram and Finite State Machines", "index.html#subsec_intro2", null ],
+      [ "Example System Response and PuTTY command window", "index.html#subsec_intro3", null ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
