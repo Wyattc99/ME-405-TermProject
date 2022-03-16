@@ -31,7 +31,7 @@ control this voltage to the solenoid. This allows us to power and unpower the so
 a pin to high or low on the microcontroller. The schematic of the circuitry is shown below.
 
 ### Solenoid Wiring Diagram (Transistor and Diode)
-![Solenoid Wiring1](/Images/Actual_Solenoid_Circuit.jpg){width = 50%}
+![Solenoid Wiring1](/Images/Actual_Solenoid_Circuit.jpg)
 
 ### Theoretical Wiring Diagram
 ![Solenoid Wiring2](/Images/Solenoid.jpg)
