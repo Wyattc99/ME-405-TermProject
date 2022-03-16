@@ -1,7 +1,7 @@
 """!
    @file                       mainpage.py
 
-   @mainpage                   Thsi page serves as a summary of our softeware operations. Talsk about how tasks interacted with eachother, and contains our overall task diagram and Finite State Machine for our position control task.
+   @mainpage                   Thsi page serves as a summary of our softeware operations, including video examples of our system response and PuTTY command window. Talsk about how tasks interacted with eachother, and contains our overall task diagram and Finite State Machine for our position control task.
 
    @section sec_intro1         Software Design
                                
@@ -17,6 +17,9 @@
                                Below is the Finite State Machine for our the position control file of one motor.
                                \image html Fsm_TermProj.jpg
                         
+   @section subsec_intro3      Example System Response and PuTTY command window
+                               A link to an exapmle system response can be found here: https://youtu.be/lQJ4eko8kKs
+                               A link to an example PuTTY command window can be found here: https://youtu.be/Qp4Me-iPOtM
    @author                     Jameson Spitz
    @author                     Jacob Wong
    @author                     Wyatt Conner
