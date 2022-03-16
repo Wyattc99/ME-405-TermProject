@@ -68,7 +68,8 @@ actual position (encoder data) and set point. If the error is above a specified 
 updates the duty cycle of the motor based on the error and returns to State 1. If the error is 
 below the threshold, the tasks returns to State 0 to get a new set point. 
 
-See a full description of our software and FSM and Task Diagram in the link to our repository:
+See a full description of our software and FSM and Task Diagram in the link to our repository:[Github Pages](https://wyattc99.github.io/ME-405-TermProject/)
+
 
 ## Results
 To test our system, we began with testing each individual component separately. We first ran each 
