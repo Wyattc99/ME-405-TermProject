@@ -19,14 +19,22 @@ connected to one end of a shaft, and a second motor drives a wheel on the other 
 See the images below for a CAD model and an image of the final prototype. All parts were either 
 bought online, 3D printed, or found in our local Cal Poly machine shops.
 
-- INSERT 2 IMAGES HERE: CAD MODEL AND FINAL DEVICE PICTURE
+### Assembly CAD Drawing
+![Assembly Drawing and BOM](/Images/ASSEMBLY.JPG)
+
+### Physical System Designed
+![System Design](/Images/SystemDesign.JPG)
 
 We needed 12V to power the solenoid. However,  the Nucleo is unable to provide such a voltage. 
 Therefore, we use an external 12V-DC power supply, and we constructed circuitry using a MOSFET to 
 control this voltage to the solenoid. This allows us to power and unpower the solenoid by setting 
 a pin to high or low on the microcontroller. The schematic of the circuitry is shown below.
 
-- INSERT IMAGE OF SOLENOID CIRCUIT
+### Solenoid Wiring Diagram (Transistor and Diode)
+![Solenoid Wiring1](/Images/Actual_Solenoid_Circuit.JPG)
+
+### Theoretical Wiring Diagram
+![Solenoid Wiring2](/Images/Solenoid.JPG)
 
 Lastly, a limit switch is mounted on the main shaft to establish the zero point of the radial 
 direction. Whenever the pen housing unit hits the limit switch, it sends a signal to the 
@@ -42,14 +50,15 @@ HPGL file and converts X and Y coordinates to R and Theta coordinates. Then, the
 these coordinates in two queue objects. The two duty cycle tasks, called 'Radial Position Control'
 and 'Theta Position Control' gather encoder data and desired position data from the previous two 
 tasks. These tasks then implement closed-loop positional control to set the duty cycle going to 
-each motor. A Task Diagram is provided below.
-![TaskDiagram_FinalProj](/Images/ME405TermProject.PNG)
+each motor.
 
 To convert X and Y data from the HPGL to R and Theta coordinates in the 'Set Point Control' 
 tasks, we needed to derive two kinematic equations, one for R and one for Theta. Hand calculations
 for these equations are pictured below.
 
--IMAGES OF EQUATION DERIVATION
+### Inverse Kinematics Calculations
+![Kinematics Sheet 1](/Images/hand_calcs_1.JPG)
+![Kinematics Sheet 2](/Images/hand_calcs_2.JPG)
 
 Each task is run using a finite state machine (FSM). The most important FSMs are in the 'Radial 
 Position Control' and 'Theta Position Control' tasks. Both these task run using a similar FSM 
@@ -57,8 +66,9 @@ depicted by the State Transition Diagrm in the image below. In State 0, each tas
 set point, or desired position for the motor. In State 1, each task calculates the error between
 actual position (encoder data) and set point. If the error is above a specified threshold, it 
 updates the duty cycle of the motor based on the error and returns to State 1. If the error is 
-below the threshold, the tasks returns to State 0 to get a new set point. - FSM PICTURE NEEDS UPDATING
-![FSM_TermProj](/Images/ME405TermProject.PNG)
+below the threshold, the tasks returns to State 0 to get a new set point. 
+
+See a full description of our software and FSM and Task Diagram in the link to our repository:
 
 ## Results
 To test our system, we began with testing each individual component separately. We first ran each 
@@ -72,7 +82,8 @@ tune the controller gains from our positional control loop. This test proved to 
 and unfortunately, our system was unable to achieve satisfactory results. The desired image we
 drew in Inkscape was a rectangle, but the image below is the drawing that our system produced.
 
-- INSERT IMAGE OF THE DRAWING THE DEVICE DREW
+### Resulting Rectangle
+![Results](/Images/Results.JPG)
 
 ## Conclusion and Discussion
 Although we were unable to create a successful 2D plotter before the deadline, we found several
@@ -93,22 +104,21 @@ have even implemented a PID controller to decreased overshoot.
 
 | Qty. | Part                    | Source                | Est. Cost |
 |:----:|:----------------------  |:----------------------|:---------:|
-|  1   | Wheel                   | Caster HQ             |   $6.59   |
-|  1   | Rod End                 | MiSumi                |   $9.95   |
-|  1   | Lead Screw              | Amazom                |   $12.99  |
+|  1   | Wheel                   | 3D Printing           |     -     |
+|  1   | Screw Eye               | Home Depot            |   $4.99   |
+|  1   | Lead Screw              | Amazon                |   $12.99  |
 |  1   | Solenoid                | Digi-Key              |   $4.95   |
+|  3   | Limit Switches          | Amazon                |   $2.00   |
 |  1   | Shaft Slider            | 3D Printing           |     -     |
 |  1   | Pencil/Solenoid Housing | 3D Printing           |     -     |
-|  1   | Electrical Tape         | Home                  |     -     |
-|  3   | Zip Ties                | Home                  |     -     |
+|  1   | Duct Tape               | Home Depot            |   $6.87   |
+|  2   | MOSFET                  | Friend in 405         |     -     |
+|  1   | Diode                   | ME 405 Lab            |     -     |
+|  3   | Zip Ties                | Friend in 405         |     -     |
 |  5   | Wires/Solder            | ME 405 Lab            |     -     |
 |  2   | Motors                  | ME 405 Lab            |     -     |
-|  1   | Wood Block              | Dumpster Behind Bondo | Our pride |
-|  1   | Shaft                   | Dumpster Behind Bondo | Our Pride |
-|  1   | 9.6mm Fitting           | Dumpster Behind Bondo | Our pride |
-|  1   | Pin Joint               | Dumpster Behind Bondo | Our pride |
+|  1   | Wood Block              | Home Depot            |   $8.25   |
+|  1   | Shaft                   | Home Depot            |   $6.18   |
+|  1   | Shaft Coupler           | Amazon                |   $3.98   |
+|  1   | Wooden Peg              | Home Depot            |   $3.48   |
 
-## CAD Model
-
-### Assembly Drawing and BOM
-![Assembly Drawing and BOM](/Images/ME405TermProject.PNG)
