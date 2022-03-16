@@ -3,6 +3,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "cotask.py", "cotask_8py.html", "cotask_8py" ],
     [ "encoderdriver.py", "encoderdriver_8py.html", "encoderdriver_8py" ],
     [ "limit_switch.py", "limit__switch_8py.html", "limit__switch_8py" ],
+    [ "main.py", "main_8py.html", "main_8py" ],
     [ "mainpage.py", "mainpage_8py.html", null ],
     [ "motordriver.py", "motordriver_8py.html", "motordriver_8py" ],
     [ "positioncontrol.py", "positioncontrol_8py.html", [

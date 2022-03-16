@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-"""
+"""!
 @file main.py
 The main file of the term project that creates and runs the tasks needed to control
 the 2 axis drawing robot we created. To do this we create each task as a method
@@ -7,7 +6,7 @@ that interacts with the firmware, and these tasks are then ran using cotask.
 @author Wyatt Conner
 @author Jacob Wong
 @author Jameson Spitz
-@date 5-March-22
+@date 5-Mar-22
 @copyright by Jameson Spitz all rights reserved
 
 """
