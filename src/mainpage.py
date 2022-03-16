@@ -19,7 +19,8 @@
    @section subsec_intro3      Example System Response and PuTTY command window
                                A link to an exapmle system response can be found here: https://youtu.be/lQJ4eko8kKs
                                A link to an example PuTTY command window can be found here: https://youtu.be/Qp4Me-iPOtM
-   @author                     Jameson Spitz
+                               In our PUTTY output we begin by zeroing the pen position, showing the duty cycle set to 45%. Once the position has been zero'd we begin to see print statements of our current set position for each motor. You can see the current position chasing the current set point, and once the setpoint is reached you can see the program increments to next set point. These print statements helped us in debugging, showing that our set point does in fact change once the error criteria is reached. 
+    @author                    Jameson Spitz
    @author                     Jacob Wong
    @author                     Wyatt Conner
 
